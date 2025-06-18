@@ -1,0 +1,29 @@
+// backend/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  rating    Int      @default(1000)
+  createdAt DateTime @default(now())
+  matchesA  Match[]  @relation("PlayerA")
+  matchesB  Match[]  @relation("PlayerB")
+}
+
+model Match {
+  id        Int      @id @default(autoincrement())
+  playerA   Player   @relation("PlayerA", fields: [playerAId], references: [id])
+  playerAId Int
+  playerB   Player   @relation("PlayerB", fields: [playerBId], references: [id])
+  playerBId Int
+  scoreA    Int
+  scoreB    Int
+  playedAt  DateTime @default(now())
+}
