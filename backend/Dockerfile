@@ -9,6 +9,7 @@ ENV DATABASE_URL=${DATABASE_URL}
 
 RUN npm install
 COPY . .
-RUN npx prisma generate         # uses DATABASE_URL when generating client
+RUN npx prisma generate         
+# uses DATABASE_URL when generating client
 
 CMD ["node", "src/index.js"]
