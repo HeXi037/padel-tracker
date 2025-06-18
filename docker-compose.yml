@@ -13,6 +13,7 @@ services:
       timeout: 3s
       retries: 5
     restart: unless-stopped
+    networks: [npm_stack]
 
   backend:
     build: ./backend
@@ -25,14 +26,20 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+    networks: [npm_stack]
 
   frontend:
     build: ./frontend
-    ports:
-      - "3000:80"
+    expose:
+      - "80"
     depends_on:
       - backend
     restart: unless-stopped
+    networks: [npm_stack]
 
 volumes:
   db-data:
+
+networks:
+  npm_stack:
+    external: true
