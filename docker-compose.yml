@@ -16,7 +16,10 @@ services:
     networks: [npm_stack]
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      args:
+        DATABASE_URL: postgres://padel:padel_secret@db:5432/padeltracker
     environment:
       DATABASE_URL: postgres://padel:padel_secret@db:5432/padeltracker
       PORT: 4000
@@ -31,7 +34,7 @@ services:
   frontend:
     build: ./frontend
     expose:
-      - "80"
+      - "80"        # only visible to NPM on the npm_stack network
     depends_on:
       - backend
     restart: unless-stopped
@@ -43,3 +46,4 @@ volumes:
 networks:
   npm_stack:
     external: true
+    
