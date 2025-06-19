@@ -7,22 +7,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Player {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  rating    Int      @default(1000)
-  createdAt DateTime @default(now())
-  matchesA  Match[]  @relation("PlayerA")
-  matchesB  Match[]  @relation("PlayerB")
+model User {
+  id              Int           @id @default(autoincrement())
+  email           String        @unique
+  password        String        // bcrypt hash
+  createdAt       DateTime      @default(now())
+  teamMemberships TeamMember[]
+}
+
+model Team {
+  id            Int           @id @default(autoincrement())
+  name          String
+  members       TeamMember[]
+  matchesTeam1  Match[]       @relation("team1")
+  matchesTeam2  Match[]       @relation("team2")
+}
+
+model TeamMember {
+  userId Int
+  teamId Int
+  user   User @relation(fields: [userId], references: [id])
+  team   Team @relation(fields: [teamId], references: [id])
+
+  @@id([userId, teamId])
 }
 
 model Match {
-  id        Int      @id @default(autoincrement())
-  playerA   Player   @relation("PlayerA", fields: [playerAId], references: [id])
-  playerAId Int
-  playerB   Player   @relation("PlayerB", fields: [playerBId], references: [id])
-  playerBId Int
-  scoreA    Int
-  scoreB    Int
-  playedAt  DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  team1Id    Int
+  team2Id    Int
+  team1Score Int      @default(0)
+  team2Score Int      @default(0)
+  playedAt   DateTime @default(now())
+
+  team1      Team     @relation("team1", fields: [team1Id], references: [id])
+  team2      Team     @relation("team2", fields: [team2Id], references: [id])
 }
