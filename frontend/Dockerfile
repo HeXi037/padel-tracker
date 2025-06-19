@@ -7,7 +7,7 @@ COPY package*.json ./
 
 # 2. install *production* deps only
 ENV NPM_CONFIG_LOGLEVEL=warn
-RUN npm ci --omit=dev
+RUN npm ci
 
 # 3. copy source and build
 COPY . .
