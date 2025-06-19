@@ -12,4 +12,4 @@ COPY . .
 RUN npx prisma generate         
 # uses DATABASE_URL when generating client
 
-CMD ["node", "src/index.js"]
+CMD ["npx", "ts-node", "src/index.ts"]
