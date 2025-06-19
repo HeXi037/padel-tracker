@@ -20,6 +20,7 @@ services:
       context: ./backend
       args:
         DATABASE_URL: postgres://padel:padel_secret@db:5432/padeltracker
+    env_file: .env
     environment:
       DATABASE_URL: postgres://padel:padel_secret@db:5432/padeltracker
       PORT: 4000
