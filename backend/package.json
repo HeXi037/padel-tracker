@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "nodemon": "latest",
-    "prisma": "latest"
+    "prisma": "latest",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
