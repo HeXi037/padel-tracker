@@ -2,10 +2,10 @@
   "name": "padel-backend",
   "version": "1.0.0",
   "type": "module",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/index.ts",
+    "dev": "nodemon src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "latest",
